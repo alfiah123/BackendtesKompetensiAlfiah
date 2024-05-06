@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cart;
 
 class controllerCart extends Controller
 {
@@ -13,8 +14,14 @@ class controllerCart extends Controller
      */
     public function index()
     {
-        //
+        $carts = Cart::join('users', 'users.id', '=', 'carts.user_id')
+                    ->join('products', 'products.id', '=', 'carts.product_id')
+                    ->select('carts.*', 'users.name as user_name', 'products.name as product_name')
+                    ->get();
+        
+        return view('cart', compact('carts'));
     }
+
 
     /**
      * Show the form for creating a new resource.

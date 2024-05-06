@@ -19,7 +19,8 @@
 
                 <div class="form-group">
                     <label for="password">Password:</label>
-                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password" disabled>
+                    <small class="text-muted">Leave this field empty if you don't want to change the password.</small>
                 </div>
 
                 <div class="form-group">

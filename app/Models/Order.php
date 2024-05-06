@@ -8,8 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    public function users()
+    // public function users()
+    // {
+    //     return $this->morphMany(User::class, 'orders');
+    // }
+
+    public function user()
     {
-        return $this->morphMany(User::class, 'orders');
+        return $this->belongsTo(User::class);
     }
+
+    protected $fillable = [
+        'user_id',
+        'total_amount',
+        'status',
+    ];
 }

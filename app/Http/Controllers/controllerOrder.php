@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\User; 
 
 class controllerOrder extends Controller
 {
@@ -14,9 +15,9 @@ class controllerOrder extends Controller
      */
     public function index()
     {
-        $data['dataOrder'] = Order::join('users', 'users.id', '=', 'orders.user_id')->get();
+        $data['dataOrder'] = Order::with('user')->get();
         return view('order', $data);
-    }
+    }    
 
     /**
      * Show the form for creating a new resource.
@@ -25,7 +26,8 @@ class controllerOrder extends Controller
      */
     public function create()
     {
-        //
+        $users = User::all(); // Mendapatkan semua pengguna dari database
+        return view('add_order', compact('users'));
     }
 
     /**
@@ -36,8 +38,13 @@ class controllerOrder extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $data = Order::create([
+            'user_id' => $request->user_id,
+            'total_amount' => $request->total_amount,
+            'status' => $request->status,
+        ]);
+        return redirect('/');
+    }    
 
     /**
      * Display the specified resource.
@@ -58,7 +65,9 @@ class controllerOrder extends Controller
      */
     public function edit($id)
     {
-        //
+        $order = Order::find($id);
+        $users = User::all(); 
+        return view('edit_order', compact('order', 'users'));
     }
 
     /**
@@ -70,8 +79,16 @@ class controllerOrder extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        $order = Order::find($id);
+    
+        $order->user_id = $request->user_id;
+        $order->total_amount = $request->total_amount;
+        $order->status = $request->status;
+    
+        $order->save();
+    
+        return redirect('/');
+    }    
 
     /**
      * Remove the specified resource from storage.

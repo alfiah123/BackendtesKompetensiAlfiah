@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controllerProduct;
 use App\Http\Controllers\controllerUser;
 use App\Http\Controllers\controllerOrder;
+use App\Http\Controllers\controllerCart;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,7 +33,7 @@ Route::get('/order', [controllerOrder::class, 'index']);
 Route::get('/add-order', [controllerOrder::class, 'create']);
 Route::post('/store-order', [controllerOrder::class, 'store']);
 Route::get('/edit-order/{id}', [controllerOrder::class, 'edit']);
-Route::post('/update-order/{id}', [controllerOrder::class, 'update']);
+Route::put('/update-order/{id}', [controllerOrder::class, 'update']);
 Route::delete('/delete-order/{id}', [controllerOrder::class, 'destroy']);
 
 Route::get('/user', [controllerUser::class, 'index']);
@@ -42,7 +43,12 @@ Route::get('/edit-user/{id}', [controllerUser::class, 'edit']);
 Route::post('/update-user/{id}', [controllerUser::class, 'update']);
 Route::delete('/delete-user/{id}', [controllerUser::class, 'destroy']);
 
-
-Route::get('/cart',function () {
-    return view('cart');
-});
+Route::get('/cart', [ControllerCart::class, 'index']);
+Route::get('/add-cart', [ControllerCart::class, 'create']);
+Route::post('/store-cart', [ControllerCart::class, 'store']);
+Route::get('/edit-cart/{id}', [ControllerCart::class, 'edit']);
+Route::put('/update-cart/{id}', [ControllerCart::class, 'update']);
+Route::delete('/delete-cart/{id}', [ControllerCart::class, 'destroy']);
+// Route::get('/cart',function () {
+//     return view('cart');
+// });

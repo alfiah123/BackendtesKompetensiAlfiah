@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-6">
-            <form action="{{ url('/store-product') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ url('/store-product') }}" method="POST">
                 @csrf
 
                 <div class="form-group">
@@ -20,6 +20,14 @@
                 <div class="form-group">
                     <label for="price">Price:</label>
                     <input type="text" class="form-control" id="price" name="price" placeholder="Enter product price">
+                </div>
+
+                <div class="form-group">
+                    <label for="jenismakanan">Jenis Makanan:</label>
+                    <select class="form-control" id="jenismakanan" name="jenismakanan">
+                        <option value="Makanan">Makanan</option>
+                        <option value="Minuman">Minuman</option>
+                    </select>
                 </div>
 
                 {{-- <div class="form-group">
